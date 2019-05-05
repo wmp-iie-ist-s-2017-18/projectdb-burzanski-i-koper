@@ -1,25 +1,39 @@
 package com.mycompany.centrumkszalcenia;
 
+import com.mycompany.centrumkszalcenia.database.HibernateUtil;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.hibernate.Session;
+
+import java.util.ResourceBundle;
 
 
 public class MainApp extends Application {
 
+    public static final String MAIN_SCENE_FXML = "/fxml/MainScene.fxml";
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(MAIN_SCENE_FXML));
+
+        ResourceBundle bundle = ResourceBundle.getBundle("bundles.messages");
+        loader.setResources(bundle);
+
+        BorderPane mainBorderPane = loader.load();
+        Scene scene = new Scene(mainBorderPane);
         
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle(bundle.getString("title.application"));
         stage.setScene(scene);
         stage.show();
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
     }
 
     /**
