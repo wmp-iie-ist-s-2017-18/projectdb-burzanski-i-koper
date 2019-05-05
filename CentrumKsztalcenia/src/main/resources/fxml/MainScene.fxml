@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.centrumkszalcenia.Controllers.MainController">
+   <top>
+      <VBox alignment="TOP_CENTER" prefHeight="120.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <MenuBar>
+           <menus>
+             <Menu mnemonicParsing="false" text="%MainScene.firstMenu">
+               <items>
+                 <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="%MainScene.firstMenu.firstMenuItem" />
+               </items>
+             </Menu>
+           </menus>
+         </MenuBar>
+         <fx:include fx:id="topMenuButtons" source="TopMenuButtons.fxml" />
+      </VBox>
+   </top>
+</BorderPane>

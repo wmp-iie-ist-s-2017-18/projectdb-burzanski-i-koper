@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.centrumkszalcenia.Controllers.OpenStudentsController">
+   <children>
+      <TableView fx:id="studentsTableView" editable="true" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="%OpenStudents.firstColumn" />
+          <TableColumn fx:id="surnameColumn" prefWidth="75.0" text="%OpenStudents.secondColumn" />
+            <TableColumn fx:id="peselColumn" prefWidth="75.0" text="%OpenStudents.thirdColumn" />
+            <TableColumn fx:id="placeColumn" prefWidth="75.0" text="%OpenStudents.fourthColumn" />
+            <TableColumn fx:id="streetColumn" prefWidth="75.0" text="%OpenStudents.fifthColumn" />
+            <TableColumn fx:id="numberOfHouseColumn" prefWidth="75.0" text="%OpenStudents.sixthColumn" />
+            <TableColumn fx:id="zipcodeColumn" minWidth="20.0" prefWidth="75.0" text="%OpenStudents.seventhColumn" />
+            <TableColumn fx:id="phoneNumberColumn" prefWidth="75.0" text="%OpenStudents.eighthColumn" />
+            <TableColumn fx:id="mailColumn" prefWidth="75.0" text="%OpenStudents.ninethColumn" />
+            <TableColumn fx:id="courseColumn" prefWidth="75.0" text="%OpenStudents.tenthColumn" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</VBox>
