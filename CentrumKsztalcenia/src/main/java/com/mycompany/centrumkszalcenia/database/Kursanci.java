@@ -1,7 +1,6 @@
 package com.mycompany.centrumkszalcenia.database;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 
 @Entity
 @Table(name = "Kursanci")
@@ -19,7 +18,7 @@ public class Kursanci {
     private String nazwisko;
 
     @Column(name = "pesel", unique = true)
-    private Long pesel;
+    private String pesel;
 
     @Column(name = "miejscowosc")
     private String miejscowosc;
@@ -70,11 +69,11 @@ public class Kursanci {
         this.nazwisko = nazwisko;
     }
 
-    public Long getPesel() {
+    public String getPesel() {
         return pesel;
     }
 
-    public void setPesel(Long pesel) {
+    public void setPesel(String pesel) {
         this.pesel = pesel;
     }
 

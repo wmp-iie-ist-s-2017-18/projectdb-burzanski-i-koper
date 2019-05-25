@@ -56,4 +56,9 @@ public class CourseFx {
     public void setProwadzacy(String prowadzacy) {
         this.prowadzacy.set(prowadzacy);
     }
+
+    @Override
+    public String toString() {
+        return nazwa.getValue();
+    }
 }

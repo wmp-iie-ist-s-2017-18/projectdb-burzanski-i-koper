@@ -1,20 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.centrumkszalcenia.Controllers.OpenCoursesController">
+<VBox alignment="TOP_CENTER" minHeight="-Infinity" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.centrumkszalcenia.Controllers.OpenCoursesController">
    <children>
-      <TableView fx:id="coursesTableView" editable="true" prefHeight="300.0">
+      <TableView fx:id="coursesTableView" editable="true" maxWidth="1000.0" minWidth="1000.0" prefHeight="300.0" prefWidth="1000.0">
         <columns>
-          <TableColumn fx:id="nameColumn" minWidth="-1.0" prefWidth="75.0" text="%OpenCourses.firstColumn" />
-          <TableColumn fx:id="hoursColumn" minWidth="-1.0" prefWidth="75.0" text="%OpenCourses.secondColumn" />
-            <TableColumn fx:id="leaderColumn" minWidth="-1.0" prefWidth="75.0" text="%OpenCourses.thirdColumn" />
+          <TableColumn fx:id="nameColumn" minWidth="-1.0" onEditCommit="#onEditCommitName" prefWidth="75.0" text="%OpenCourses.firstColumn" />
+          <TableColumn fx:id="hoursColumn" minWidth="-1.0" onEditCommit="#onEditCommitHours" prefWidth="30.0" text="%OpenCourses.secondColumn" />
+            <TableColumn fx:id="leaderColumn" minWidth="-1.0" onEditCommit="#onEditCommitLeader" onEditStart="#onEditStartLeader" prefWidth="75.0" text="%OpenCourses.thirdColumn" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" onAction="#onActionDeleteMenuItem" text="%OpenCourses.deleteMenuItem" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
       </TableView>
+      <VBox maxWidth="1000.0" minWidth="1000.0" prefWidth="1000.0" spacing="10.0">
+         <children>
+            <Label text="%OpenCourses.addSectionLabel">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <HBox alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label text="%OpenCourses.nameLabel">
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="nameTextField" />
+                  <Label text="%OpenCourses.hoursLabel">
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="hoursTextField" />
+                  <Label text="%OpenCourses.leaderLabel">
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="addLeaderComboBox" onAction="#onActionAddLeaderComboBox" prefWidth="150.0" />
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onActionAddButton" text="%OpenCourses.addButton" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="editSectionVBox" alignment="TOP_CENTER">
+         <children>
+            <Label text="%OpenCourses.editSectionLabel">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <ComboBox fx:id="editLeaderComboBox" onAction="#onActionEditComboBox" prefWidth="150.0" />
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#onActionEditButton" text="%OpenCourses.editLeaderButton" />
+                  <Button fx:id="cancelEditButton" mnemonicParsing="false" onAction="#onActionCancelEditButton" text="%OpenCourses.cancelEditLeaderButton" />
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="30.0" />
+         </VBox.margin>
+      </VBox>
    </children>
+   <padding>
+      <Insets top="50.0" />
+   </padding>
 </VBox>

@@ -2,9 +2,7 @@ package com.mycompany.centrumkszalcenia;
 
 import com.mycompany.centrumkszalcenia.database.HibernateUtil;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -22,17 +20,19 @@ public class MainApp extends Application {
 
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(MAIN_SCENE_FXML));
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
         ResourceBundle bundle = ResourceBundle.getBundle("bundles.messages");
         loader.setResources(bundle);
 
         BorderPane mainBorderPane = loader.load();
         Scene scene = new Scene(mainBorderPane);
         
-        stage.setTitle(bundle.getString("title.application"));
+        stage.setTitle(bundle.getString("MainApp.titleApplication"));
         stage.setScene(scene);
         stage.show();
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
+
 
     }
 

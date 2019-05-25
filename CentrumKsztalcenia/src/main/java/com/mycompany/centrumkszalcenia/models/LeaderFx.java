@@ -59,4 +59,9 @@ public class LeaderFx {
     public void setMail(String mail) {
         this.mail.set(mail);
     }
+
+    @Override
+    public String toString() {
+        return nazwisko.getValue() + " " + imie.getValue();
+    }
 }

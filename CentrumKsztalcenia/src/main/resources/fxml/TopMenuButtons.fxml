@@ -6,9 +6,9 @@
 
 <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.centrumkszalcenia.Controllers.TopMenuButtonsController">
    <children>
-      <Button mnemonicParsing="false" onAction="#openLeaders" prefHeight="80.0" prefWidth="150.0" text="%TopMenuButtons.firstButton" />
-      <Button mnemonicParsing="false" onAction="#openCourses" prefHeight="80.0" prefWidth="150.0" text="%TopMenuButtons.secondButton" />
-      <Button mnemonicParsing="false" onAction="#openStudents" prefHeight="80.0" prefWidth="150.0" text="%TopMenuButtons.thirdButton" />
+      <Button fx:id="leaderButton" mnemonicParsing="false" onAction="#openLeaders" prefHeight="80.0" prefWidth="150.0" text="%TopMenuButtons.firstButton" />
+      <Button fx:id="courseButton" mnemonicParsing="false" onAction="#openCourses" prefHeight="80.0" prefWidth="150.0" text="%TopMenuButtons.secondButton" />
+      <Button fx:id="studentsButton" mnemonicParsing="false" onAction="#openStudents" prefHeight="80.0" prefWidth="150.0" text="%TopMenuButtons.thirdButton" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

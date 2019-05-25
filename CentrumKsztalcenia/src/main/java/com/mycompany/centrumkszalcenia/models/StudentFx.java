@@ -6,7 +6,7 @@ public class StudentFx {
     private IntegerProperty idKursanta = new SimpleIntegerProperty();
     private StringProperty imie = new SimpleStringProperty();
     private StringProperty nazwisko = new SimpleStringProperty();
-    private LongProperty pesel = new SimpleLongProperty();
+    private StringProperty pesel = new SimpleStringProperty();
     private StringProperty miejscowosc = new SimpleStringProperty();
     private StringProperty ulica = new SimpleStringProperty();
     private IntegerProperty nrDomu = new SimpleIntegerProperty();
@@ -51,15 +51,15 @@ public class StudentFx {
         this.nazwisko.set(nazwisko);
     }
 
-    public long getPesel() {
+    public String getPesel() {
         return pesel.get();
     }
 
-    public LongProperty peselProperty() {
+    public StringProperty peselProperty() {
         return pesel;
     }
 
-    public void setPesel(long pesel) {
+    public void setPesel(String pesel) {
         this.pesel.set(pesel);
     }
 
@@ -146,4 +146,5 @@ public class StudentFx {
     public void setKurs(String kurs) {
         this.kurs.set(kurs);
     }
+
 }

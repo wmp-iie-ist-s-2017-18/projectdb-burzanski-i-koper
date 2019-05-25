@@ -1,7 +1,12 @@
 package com.mycompany.centrumkszalcenia.Controllers;
 
+import com.mycompany.centrumkszalcenia.Utils.Alerts;
+import com.mycompany.centrumkszalcenia.Utils.ApplicationException;
+import com.mycompany.centrumkszalcenia.Utils.MailValidator;
 import com.mycompany.centrumkszalcenia.models.LeaderFx;
 import com.mycompany.centrumkszalcenia.models.LeaderModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -10,6 +15,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 public class OpenLeadersController {
 
     private LeaderModel leaderModel;
+    private MailValidator mailValidator;
 
     @FXML
     private TableView<LeaderFx> leaderTableView;
@@ -50,35 +56,108 @@ public class OpenLeadersController {
         addButton.disableProperty().bind(nameTextField.textProperty().isEmpty()
         .or(surnameTextField.textProperty().isEmpty()
         .or(mailTextField.textProperty().isEmpty())));
+
+        limitedTextField();
+    }
+
+    public void limitedTextField () {
+        this.nameTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+                if (nameTextField.getText().length() > 30) {
+                    String s = nameTextField.getText().substring(0, 30);
+                    nameTextField.setText(s);
+                }
+            }
+        });
+
+        this.surnameTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+                if (surnameTextField.getText().length() > 30) {
+                    String s = surnameTextField.getText().substring(0, 30);
+                    surnameTextField.setText(s);
+                }
+            }
+        });
+
+        this.mailTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+                if (mailTextField.getText().length() > 30) {
+                    String s = mailTextField.getText().substring(0, 30);
+                    mailTextField.setText(s);
+                }
+            }
+        });
     }
 
     public void onActionAddButton() {
-        String name = nameTextField.getText();
-        String surname = surnameTextField.getText();
-        String mail = mailTextField.getText();
-        this.leaderModel.saveLeader(name, surname, mail);
+        this.mailValidator = new MailValidator();
+        boolean isValid = this.mailValidator.validateEmailAddress(this.mailTextField.getText());
 
-        nameTextField.clear();
-        surnameTextField.clear();
-        mailTextField.clear();
+        if (isValid == true) {
+            String name = this.nameTextField.getText();
+            String surname = this.surnameTextField.getText();
+            String mail = this.mailTextField.getText();
+
+            try {
+                this.leaderModel.saveLeader(name, surname, mail);
+
+                this.nameTextField.clear();
+                this.surnameTextField.clear();
+                this.mailTextField.clear();
+            } catch (ApplicationException e) {
+                Alerts.AddRecordErrorAlert(e.getMessage());
+            }
+        } else {
+            Alerts.WrongMailInformationAlert();
+        }
     }
 
     public void onEditCommitName(TableColumn.CellEditEvent<LeaderFx, String> leaderFxStringCellEditEvent) {
         this.leaderModel.getLeaderFxObjectPropertyEdit().setImie(leaderFxStringCellEditEvent.getNewValue());
-        this.leaderModel.updateLeader();
+        try {
+            this.leaderModel.updateLeader();
+        } catch (ApplicationException e) {
+            Alerts.UpdateRecordErrorAlert(e.getMessage());
+            this.leaderModel.initLeaderList();
+        }
     }
 
     public void onEditCommitSurname(TableColumn.CellEditEvent<LeaderFx, String> leaderFxStringCellEditEvent) {
         this.leaderModel.getLeaderFxObjectPropertyEdit().setNazwisko(leaderFxStringCellEditEvent.getNewValue());
-        this.leaderModel.updateLeader();
+        try {
+            this.leaderModel.updateLeader();
+        } catch (ApplicationException e) {
+            Alerts.UpdateRecordErrorAlert(e.getMessage());
+            this.leaderModel.initLeaderList();
+        }
     }
 
     public void onEditCommitMail(TableColumn.CellEditEvent<LeaderFx, String> leaderFxStringCellEditEvent) {
-        this.leaderModel.getLeaderFxObjectPropertyEdit().setMail(leaderFxStringCellEditEvent.getNewValue());
-        this.leaderModel.updateLeader();
+        this.mailValidator = new MailValidator();
+        boolean isValid = this.mailValidator.validateEmailAddress(leaderFxStringCellEditEvent.getNewValue());
+
+        if (isValid == true) {
+            this.leaderModel.getLeaderFxObjectPropertyEdit().setMail(leaderFxStringCellEditEvent.getNewValue());
+            try {
+                this.leaderModel.updateLeader();
+            } catch (ApplicationException e) {
+                Alerts.UpdateRecordErrorAlert(e.getMessage());
+                this.leaderModel.initLeaderList();
+            }
+        } else {
+            Alerts.WrongMailInformationAlert();
+            this.leaderModel.initLeaderList();
+        }
     }
 
     public void onActionDeleteLeader() {
-        this.leaderModel.deleteLeader();
+        try {
+            this.leaderModel.deleteLeader();
+        } catch (ApplicationException e) {
+            Alerts.DeleteRecordErrorAlert(e.getMessage());
+        }
     }
 }

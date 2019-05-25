@@ -1,5 +1,6 @@
 package com.mycompany.centrumkszalcenia.models;
 
+import com.mycompany.centrumkszalcenia.Utils.ApplicationException;
 import com.mycompany.centrumkszalcenia.database.HibernateUtil;
 import com.mycompany.centrumkszalcenia.database.Prowadzacy;
 import javafx.beans.property.ObjectProperty;
@@ -8,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.postgresql.util.PSQLException;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -21,7 +23,7 @@ public class LeaderModel {
     private ObservableList<LeaderFx> leaderFxObservableList = FXCollections.observableArrayList();
 
     public void initLeaderList(){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -41,51 +43,77 @@ public class LeaderModel {
         }
 
         session.getTransaction().commit();
-        session.close();
     }
 
-    public void saveLeader(String imie, String nazwisko, String mail){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-
+    public void saveLeader(String imie, String nazwisko, String mail) throws ApplicationException {
         Prowadzacy nowyProwadzacy = new Prowadzacy();
         nowyProwadzacy.setImie(imie);
         nowyProwadzacy.setNazwisko(nazwisko);
         nowyProwadzacy.setMail(mail);
-        session.save(nowyProwadzacy);
 
-        session.getTransaction().commit();
-        session.close();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            session.save(nowyProwadzacy);
+            session.getTransaction().commit();
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            PSQLException psqle = getCauseOfClass(e, PSQLException.class);
+            throw new ApplicationException(psqle.getMessage());
+        }
+
         initLeaderList();
     }
 
-    public void updateLeader(){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-
+    public void updateLeader() throws ApplicationException {
         Prowadzacy updateProwadzacy = new Prowadzacy();
         updateProwadzacy.setIdProwadzacego(leaderFxObjectPropertyEdit.getValue().getIdProwadzacy());
         updateProwadzacy.setImie(leaderFxObjectPropertyEdit.getValue().getImie());
         updateProwadzacy.setNazwisko(leaderFxObjectPropertyEdit.getValue().getNazwisko());
         updateProwadzacy.setMail(leaderFxObjectPropertyEdit.getValue().getMail());
-        session.update(updateProwadzacy);
 
-        session.getTransaction().commit();
-        session.close();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            session.update(updateProwadzacy);
+            session.getTransaction().commit();
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            PSQLException psqle = getCauseOfClass(e, PSQLException.class);
+            throw new ApplicationException(psqle.getMessage());
+        }
+
         initLeaderList();
     }
 
-    public void deleteLeader() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-
+    public void deleteLeader() throws ApplicationException {
         Prowadzacy deleteProwadzacy = new Prowadzacy();
         deleteProwadzacy.setIdProwadzacego(leaderFxObjectPropertyEdit.getValue().getIdProwadzacy());
-        session.delete(deleteProwadzacy);
 
-        session.getTransaction().commit();
-        session.close();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            session.delete(deleteProwadzacy);
+            session.getTransaction().commit();
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            PSQLException psqle = getCauseOfClass(e, PSQLException.class);
+            throw new ApplicationException(psqle.getMessage());
+        }
+
         initLeaderList();
+    }
+
+    <E extends Throwable> E getCauseOfClass(RuntimeException e, Class<E> exceptionClass) {
+        Throwable t = e;
+        do {
+            if (exceptionClass.isAssignableFrom(t.getClass())) {
+                return (E) t;
+            }
+        } while ((t = t.getCause()) != null);  // go deeper in cause chain
+        throw e;                               // if not found, re-throw
     }
 
     public LeaderFx getLeaderFxObjectProperty() {

@@ -1,8 +1,8 @@
 package com.mycompany.centrumkszalcenia.Controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import sun.applet.Main;
+import javafx.scene.control.Button;
+
 
 public class TopMenuButtonsController {
 
@@ -11,11 +11,12 @@ public class TopMenuButtonsController {
     public static final String OPEN_STUDENTS_FXML = "/fxml/OpenStudents.fxml";
     private MainController mainController;
 
-
     @FXML
-    private void initialize(){
-
-    }
+    private Button leaderButton;
+    @FXML
+    private Button courseButton;
+    @FXML
+    private Button studentsButton;
 
     @FXML
     public void openLeaders() {
@@ -35,4 +36,5 @@ public class TopMenuButtonsController {
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
+
 }
