@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION dodaj(imie1 text, nazwisko1 text, pesel1 text, miejscowosc1 text, ulica1 text, nr_domu1 integer, kod_pocztowy1 integer, nr_telefonu1 integer, mail1 text, id_kursu1 integer) RETURNS integer AS $$
+	declare
+	local_id numeric;
+	BEGIN
+		
+		select id_kursanta into local_id from kursanci where pesel = pesel1;
+		if local_id is not null then 
+			RETURN 1;
+		else
+			insert into Kursanci (imie, nazwisko, pesel, miejscowosc, ulica, nr_domu, kod_pocztowy, nr_telefonu, mail, id_kursu) values (imie1, nazwisko1, pesel1, miejscowosc1, ulica1, nr_domu1, kod_pocztowy1, nr_telefonu1, mail1, id_kursu1);
+		END if;
+		RETURN 0;
+	END
+$$ LANGUAGE 'plpgsql';
