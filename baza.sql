@@ -81,7 +81,7 @@ INSERT INTO kursy (nazwa, liczba_godzin, id_prowadzacego) VALUES ('Kosmetologia'
 INSERT INTO kursy (nazwa, liczba_godzin, id_prowadzacego) VALUES ('Zarządzanie krysyzem w firmie',	120,	4);
 INSERT INTO kursy (nazwa, liczba_godzin, id_prowadzacego) VALUES ('Psychologia dziecka',	50,	5);
 
-INSERT INTO kursanci (imie, nazwisko, pesel, miejscowosc, ulica, nr_domu, kod_pocztowy, nr_telefonu, mail, id_kursu) VALUES ('Karol', 'Nowak', '93071589648', ',Rzeszów', 'Krzywoustego', 7, 35015, 123456789,	'karol.nowak@mail.pl', 1);
+INSERT INTO kursanci (imie, nazwisko, pesel, miejscowosc, ulica, nr_domu, kod_pocztowy, nr_telefonu, mail, id_kursu) VALUES ('Karol', 'Nowak', '93071589648', 'Rzeszów', 'Krzywoustego', 7, 35015, 123456789,	'karol.nowak@mail.pl', 1);
 INSERT INTO kursanci (imie, nazwisko, pesel, miejscowosc, ulica, nr_domu, kod_pocztowy, nr_telefonu, mail, id_kursu) VALUES ('Wioletta', 'Trawa', '86022825582', 'Rzeszów', 'Graniczna', 5, 34125, 123547852, 'wioletta.trawa@mail.pl', 4);
 INSERT INTO kursanci (imie, nazwisko, pesel, miejscowosc, ulica, nr_domu, kod_pocztowy, nr_telefonu, mail, id_kursu) VALUES ('Arkadiusz', 'Polak', '94021325385', 'Rzeszów', 'Rejtana', 54, 34024, 564189151, 'arkadiusz.polak@mail.pl', 2);
 INSERT INTO kursanci (imie, nazwisko, pesel, miejscowosc, ulica, nr_domu, kod_pocztowy, nr_telefonu, mail, id_kursu) VALUES ('Karolina', 'Matra', '49030111843', 'Rzeszów', 'Polna', 85, 35621, 141865165, 'karolina.matra@mail.pl', 6);
