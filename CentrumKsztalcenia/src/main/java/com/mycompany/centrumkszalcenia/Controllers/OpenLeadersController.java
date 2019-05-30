@@ -68,8 +68,8 @@ public class OpenLeadersController {
                     String s = nameTextField.getText().substring(0, 30);
                     nameTextField.setText(s);
                 }
-                if (!newValue.matches("\\sa-zA-Zą-żó*")) {
-                    nameTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żó]", ""));
+                if (!newValue.matches("\\sa-zA-Zą-żĄ-ŻóÓ*")) {
+                    nameTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żĄ-ŻóÓ]", ""));
                 }
             }
         });
@@ -81,8 +81,8 @@ public class OpenLeadersController {
                     String s = surnameTextField.getText().substring(0, 30);
                     surnameTextField.setText(s);
                 }
-                if (!newValue.matches("\\sa-zA-Zą-żó*")) {
-                    surnameTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żó]", ""));
+                if (!newValue.matches("\\sa-zA-Zą-żĄ-ŻóÓ*")) {
+                    surnameTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żĄ-ŻóÓ]", ""));
                 }
             }
         });

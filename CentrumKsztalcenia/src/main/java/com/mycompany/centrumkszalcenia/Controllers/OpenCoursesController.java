@@ -93,8 +93,8 @@ public class OpenCoursesController {
                     String s = nameTextField.getText().substring(0, 50);
                     nameTextField.setText(s);
                 }
-                if (!newValue.matches("\\sa-zA-Zą-żó*")) {
-                    nameTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żó]", ""));
+                if (!newValue.matches("\\sa-zA-Zą-żĄ-ŻóÓ*")) {
+                    nameTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żĄ-ŻóÓ]", ""));
                 }
             }
         });
