@@ -158,6 +158,9 @@ public class OpenStudentsController {
                     String s = nameTextField.getText().substring(0, 30);
                     nameTextField.setText(s);
                 }
+                if (!newValue.matches("\\sa-zA-Zą-żó*")) {
+                    nameTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żó]", ""));
+                }
             }
         });
 
@@ -167,6 +170,9 @@ public class OpenStudentsController {
                 if (surnameTextField.getText().length() > 30) {
                     String s = surnameTextField.getText().substring(0, 30);
                     surnameTextField.setText(s);
+                }
+                if (!newValue.matches("\\sa-zA-Zą-żó*")) {
+                    surnameTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żó]", ""));
                 }
             }
         });
@@ -192,6 +198,9 @@ public class OpenStudentsController {
                     String s = placeTextField.getText().substring(0, 30);
                     placeTextField.setText(s);
                 }
+                if (!newValue.matches("\\sa-zA-Zą-żó*")) {
+                    placeTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żó]", ""));
+                }
             }
         });
 
@@ -201,6 +210,9 @@ public class OpenStudentsController {
                 if (streetTextField.getText().length() > 30) {
                     String s = streetTextField.getText().substring(0, 30);
                     streetTextField.setText(s);
+                }
+                if (!newValue.matches("\\sa-zA-Zą-żó*")) {
+                    streetTextField.setText(newValue.replaceAll("[^\\sa-zA-Zą-żó]", ""));
                 }
             }
         });
